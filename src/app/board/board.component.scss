@@ -1,0 +1,21 @@
+.board {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: 2px;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: #003366;
+    min-height: 30px;
+
+    .cell {
+        width: 40px;
+        height: 40px;
+        background-color: #8a4bf8;
+        display: flex ;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        border-radius: 3px;
+    }
+}
