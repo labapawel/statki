@@ -2,20 +2,28 @@
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
-    gap: 2px;
+    gap: 5px;
     padding: 5px;
     border-radius: 4px;
     background-color: #003366;
     min-height: 30px;
+    height: 500px;
+    width: 500px;
 
     .cell {
-        width: 40px;
-        height: 40px;
         background-color: #8a4bf8;
         display: flex ;
         justify-content: center;
         align-items: center;
         cursor: pointer;
         border-radius: 3px;
+
+        &.ship {
+            background-color: #0a010c;
+        }
+
+        &:hover {
+            background-color: #6d1b7b;
+        }
     }
 }

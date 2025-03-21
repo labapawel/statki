@@ -1,3 +1,4 @@
 <div class="board">
-    <div class="cell" *ngFor="let item of cells"></div>
+    <div class="cell" *ngFor="let item of cells" (click)="klik(item)" 
+        [ngClass]="{ship: item.ship}"></div>
 </div>
