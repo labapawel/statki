@@ -35,6 +35,7 @@ export class BoardComponent {
     for(let i = 0; i < shipLength; i+=this.cellsCount){
       if(this.cells[index + i].ship) res = true;
     }
+    
     return res;
   }
 
