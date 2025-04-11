@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { BoardComponent } from './board/board.component';
 import { Ship } from './ship';
+import { SocketService } from './socket.service';
 
 @Component({
   selector: 'app-root',
@@ -23,4 +24,6 @@ export class AppComponent {
     {name: 'Destroyer', size: 1, selected: false},
     {name: 'Destroyer', size: 1, selected: false},
   ];
+  constructor(private socket: SocketService) {
+  }
 }

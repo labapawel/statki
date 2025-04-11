@@ -1,3 +1,7 @@
+.hide {
+   position: absolute;
+   top: -9999px;
+}
 .board {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
