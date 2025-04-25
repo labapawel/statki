@@ -1,5 +1,5 @@
 <input type="text" (keyup)="keyUp($event)" #input (keydown)="keyDown($event)" [ngClass]="{hide:true}">
-<div class="board" >
+<div class="board" [ngClass]="{shipsSelected:!shipsSelected, run:run()}" >
     <div class="cell" *ngFor="let item of cells" (click)="klik(item)" 
         [ngClass]="{ship: item.ship}"></div>
 </div>

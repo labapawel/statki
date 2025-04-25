@@ -2,6 +2,7 @@ import { NgClass, NgFor } from '@angular/common';
 import { Component, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Ship } from '../ship';
 import { SocketService } from '../socket.service';
+import { StanGry } from '../stan-gry';
 
 @Component({
   selector: 'app-board',
@@ -15,17 +16,37 @@ export class BoardComponent implements AfterViewInit {
   @Input() ships: Ship[] = [];
   cellsCount = 10;
   cells: any[] = [];
+  stanGry: any = null
   @ViewChild('input') input!: ElementRef;
 
   constructor( private sock:SocketService) {
+  
 
     for(let i = 0; i < this.cellsCount**2; i++){
       this.cells[i] = {ship: false};
       }
+      sock.stanGry.subscribe((stanGry:StanGry|null) => {
+        console.log(stanGry);
+        this.stanGry = stanGry;
+      });
     
+  }
+
+  public run(){
+    if(this.stanGry!=null)
+      return this.stanGry.gracz == 1 && this.stanGry.Client1==this.stanGry.my || 
+          this.stanGry.Client2==this.stanGry.my && this.stanGry.gracz == 2;
+    else
+    return false
   }
   ngAfterViewInit(): void {
    this.input.nativeElement.focus();
+   if(this.shipsSelected){
+      this.sock.subscribe.subscribe((tablica:any) => {
+        if(tablica.length != 0)
+              this.cells = tablica;
+    });
+  }
   }
 
   public down:boolean = false;
