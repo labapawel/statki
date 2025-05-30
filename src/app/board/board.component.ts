@@ -27,6 +27,9 @@ export class BoardComponent implements AfterViewInit {
       }
       sock.stanGry.subscribe((stanGry:StanGry|null) => {
         console.log(stanGry);
+        if(stanGry == null) return; // nie ma stanu gry
+        
+
         this.stanGry = stanGry;
       });
     
@@ -42,9 +45,14 @@ export class BoardComponent implements AfterViewInit {
   ngAfterViewInit(): void {
    this.input.nativeElement.focus();
    if(this.shipsSelected){
-      this.sock.subscribe.subscribe((tablica:any) => {
-        if(tablica.length != 0)
-              this.cells = tablica;
+      this.sock.subscribe.subscribe((obj:any) => {
+        if(obj.tablica.length != 0)
+              this.cells = obj.tablica;
+
+        // console.log(obj.statki);
+        
+        if(obj.statki != null && obj.statki.length != 0)
+              this.ships = obj.statki;
     });
   }
   }
@@ -125,6 +133,8 @@ export class BoardComponent implements AfterViewInit {
 
   klik(item: any) {
     if(this.shipsSelected){
+      // console.log(this.ships);
+      
         let statek = this.ships.filter((s) => !s.selected)[0];
         if(!statek) { 
 
@@ -165,7 +175,8 @@ export class BoardComponent implements AfterViewInit {
       }
 
     }
-    this.sock.wyslijTablice(this.cells); // modyfikacja tablicy
+    console.log(this.cells, this.ships);
+    this.sock.wyslijTablice(this.cells, this.ships); // modyfikacja tablicy
     this.input.nativeElement.focus();
   }
 }

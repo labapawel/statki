@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
 import { StanGry } from './stan-gry';
+import { Ship } from './ship';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketService {
 
-  private bs: BehaviorSubject<Array<any>> = new BehaviorSubject<Array<any>>([]);  
+  private bs: BehaviorSubject<any> = new BehaviorSubject<any>({'tablica':[], 'statki':[]}); // tablica i statki
   private _stanGry: BehaviorSubject<StanGry|null> = new BehaviorSubject<StanGry|null>(null); // stanGry
 
   public get subscribe(){
@@ -35,8 +36,8 @@ export class SocketService {
   });
   private _userUnqId:number = 0;
 
-  wyslijTablice(tablica: any){
-    this.socket.emit('modTablice', tablica);
+  wyslijTablice(tablica: any, ships: Ship[] = []) {
+    this.socket.emit('modTablice', tablica, ships);
   }
 
   constructor() {
@@ -48,8 +49,8 @@ export class SocketService {
       this._stanGry.next(stanGry); // poinformuj subskrybentów o zmianie stanu gry
     });
 
-    this.socket.on('modTablice', (tablica:any) => {
-      this.bs.next(tablica); // poinformuj subskrybentów o zmianie tablicy
+    this.socket.on('modTablice', (tablica:any, ships:Ship[]) => {
+      this.bs.next({'tablica':tablica, 'statki':ships}); // poinformuj subskrybentów o zmianie tablicy
       console.log(tablica);
     });
 
