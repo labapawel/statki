@@ -152,6 +152,18 @@ export class BoardComponent implements AfterViewInit {
         }
       }
 
+    } else {
+      if(! this.run())
+        return;
+      
+      if(item.ship)
+        return; // nie klikaj w zajęte pole
+
+      let index = this.cells.indexOf(item);
+      if(!item.ship){
+        item.ship = true;
+      }
+
     }
     this.sock.wyslijTablice(this.cells); // modyfikacja tablicy
     this.input.nativeElement.focus();
