@@ -12,18 +12,6 @@ import { SocketService } from './socket.service';
 })
 export class AppComponent {
   title = 'Statki';
-  ships: Ship[]   = [
-    {name: 'Carrier', size: 4, selected: false},
-    {name: 'Battleship', size: 3, selected: false},
-    {name: 'Battleship', size: 3, selected: false},
-    {name: 'Submarine', size: 2, selected: false},
-    {name: 'Submarine', size: 2, selected: false},
-    {name: 'Submarine', size: 2, selected: false},
-    {name: 'Destroyer', size: 1, selected: false},
-    {name: 'Destroyer', size: 1, selected: false},
-    {name: 'Destroyer', size: 1, selected: false},
-    {name: 'Destroyer', size: 1, selected: false},
-  ];
-  constructor(private socket: SocketService) {
-  }
+  
+
 }

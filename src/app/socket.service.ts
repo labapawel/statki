@@ -19,6 +19,20 @@ export class SocketService {
     return this._stanGry.asObservable();
   }
 
+  public ships: Ship[]   = [
+    {name: 'Carrier 1', size: 4, selected: false},
+    {name: 'Battleship 1', size: 3, selected: false},
+    {name: 'Battleship 2', size: 3, selected: false},
+    {name: 'Submarine 1', size: 2, selected: false},
+    {name: 'Submarine 2', size: 2, selected: false},
+    {name: 'Submarine 3', size: 2, selected: false},
+    {name: 'Destroyer 1', size: 1, selected: false},
+    {name: 'Destroyer 2', size: 1, selected: false},
+    {name: 'Destroyer 3', size: 1, selected: false},
+    {name: 'Destroyer 4', size: 1, selected: false},
+  ];
+
+
   public get userUnqId(): number {
     this._userUnqId = localStorage.getItem('userUnqId') ? parseInt(localStorage.getItem('userUnqId')!) : 0;    
     if(!this._userUnqId){
@@ -42,8 +56,24 @@ export class SocketService {
 
   constructor() {
 
-    this.socket.on('connect', () => {});
+    this.socket.on('connect', () => {
 
+    });
+
+    this.socket.on('ustawienieStatkow', (stan:any) => {
+      // console.log("Ustawienie statkow: ",stan);
+      // console.log(stan.wybranePola);
+      this.ships.forEach((ship: Ship) => {
+        
+        let isSel = stan.wybranePola.find((e: any) => e.ship && e.shipItem.name == ship.name); // sprawdzamy czy statek jest zaznaczony
+        
+        if(isSel != undefined && isSel.ship)
+          ship.selected = true; // zaznaczamy statki, które zostały ustawione
+                
+      });
+
+    }); 
+      
     this.socket.on('stanGry', (stanGry: StanGry) => { 
       stanGry.my = this.userUnqId; // dodajemy nasze id do stanu gry
       this._stanGry.next(stanGry); // poinformuj subskrybentów o zmianie stanu gry

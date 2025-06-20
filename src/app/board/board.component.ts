@@ -13,7 +13,7 @@ import { StanGry } from '../stan-gry';
 
 export class BoardComponent implements AfterViewInit {
   @Input() shipsSelected: boolean = false;
-  @Input() ships: Ship[] = [];
+  // @Input() ships: Ship[] = [];
   cellsCount = 10;
   cells: any[] = [];
   stanGry: any = null
@@ -37,8 +37,8 @@ export class BoardComponent implements AfterViewInit {
 
   public run(){
     if(this.stanGry!=null)
-      return this.stanGry.gracz == 1 && this.stanGry.Client1==this.stanGry.my || 
-          this.stanGry.Client2==this.stanGry.my && this.stanGry.gracz == 2;
+      return (this.stanGry.gracz == 1 && this.stanGry.Client1==this.stanGry.my || 
+          this.stanGry.Client2==this.stanGry.my && this.stanGry.gracz == 2) && this.sock.ships.findIndex(e=>!e.selected) == -1;
     else
     return false
   }
@@ -49,10 +49,7 @@ export class BoardComponent implements AfterViewInit {
         if(obj.tablica.length != 0)
               this.cells = obj.tablica;
 
-        // console.log(obj.statki);
         
-        if(obj.statki != null && obj.statki.length != 0)
-              this.ships = obj.statki;
     });
   }
   }
@@ -135,7 +132,7 @@ export class BoardComponent implements AfterViewInit {
     if(this.shipsSelected){
       // console.log(this.ships);
       
-        let statek = this.ships.filter((s) => !s.selected)[0];
+        let statek = this.sock.ships.filter((s) => !s.selected)[0];
         if(!statek) { 
 
           return
@@ -175,8 +172,8 @@ export class BoardComponent implements AfterViewInit {
       }
 
     }
-    console.log(this.cells, this.ships);
-    this.sock.wyslijTablice(this.cells, this.ships); // modyfikacja tablicy
+    console.log(this.cells, this.sock.ships);
+    this.sock.wyslijTablice(this.cells, this.sock.ships); // modyfikacja tablicy
     this.input.nativeElement.focus();
   }
 }
