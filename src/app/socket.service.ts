@@ -80,6 +80,8 @@ export class SocketService {
       
     this.socket.on('stanGry', (stanGry: StanGry) => { 
       stanGry.my = this.userUnqId; // dodajemy nasze id do stanu gry
+      console.log(stanGry);
+      
       this._stanGry.next(stanGry); // poinformuj subskrybentów o zmianie stanu gry
     });
 

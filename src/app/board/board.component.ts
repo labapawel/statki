@@ -23,16 +23,26 @@ export class BoardComponent implements AfterViewInit {
   
 
     for(let i = 0; i < this.cellsCount**2; i++){
-      this.cells[i] = {ship: false};
+      this.cells[i] = {ship: false, checkedBox: {selected:false, ship:false}
+    };
       }
       sock.stanGry.subscribe((stanGry:StanGry|null) => {
         // console.log(stanGry);
         if(stanGry == null) return; // nie ma stanu gry
         
-
+        // this.cells = stanGry.ruchyGracza;
         this.stanGry = stanGry;
       });
     
+  }
+
+  public sel(key:number):boolean{
+  //  console.log(this.stanGry.wybranePola[key].checkedBox.selected);
+    return this.stanGry?.wybranePola[key]?.checkedBox.selected && !this.shipsSelected;
+  }
+
+  public ship(key:number):boolean{
+    return false;
   }
 
   public run(){
@@ -46,6 +56,9 @@ export class BoardComponent implements AfterViewInit {
    this.input.nativeElement.focus();
    if(this.shipsSelected){
       this.sock.subscribe.subscribe((obj:any) => {
+        console.log('akt..', obj);
+        
+
         if(obj.tablica.length != 0)
               this.cells = obj.tablica;
 
