@@ -23,7 +23,7 @@ export class BoardComponent implements AfterViewInit {
   
 
     for(let i = 0; i < this.cellsCount**2; i++){
-      this.cells[i] = {ship: false, checkedBox: {selected:false, ship:false}
+      this.cells[i] = {ship: false, checkedBox: {selected:false, ship:false, bullseye: false, shot: false}
     };
       }
       sock.stanGry.subscribe((stanGry:StanGry|null) => {
@@ -40,6 +40,26 @@ export class BoardComponent implements AfterViewInit {
   //  console.log(this.stanGry.wybranePola[key].checkedBox.selected);
     return this.stanGry?.wybranePola[key]?.checkedBox.selected && !this.shipsSelected;
   }
+
+  public res(key:number):string{
+
+    // pole gracza, który atakuje
+    if(!this.shipsSelected){
+        if(this.stanGry?.wybranePola[key]?.checkedBox.bullseye) return 'X';
+    } else {
+      // pole gracza, który ustawia statki
+      if(this.stanGry.wybranePola[key].shipItem)
+        if(this.stanGry.wybranePola[key]?.shipItem.bullseye) return 'X';
+
+        if(this.stanGry.wybranePola[key]?.checkedBox?.shot) return 'X';
+
+
+    }
+
+    return '';
+  }
+
+
 
   public ship(key:number):boolean{
     return false;
