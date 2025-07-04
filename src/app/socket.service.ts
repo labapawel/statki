@@ -20,16 +20,16 @@ export class SocketService {
   }
 
   public ships: Ship[]   = [
-    {name: 'Carrier 1', size: 4, selected: false},
-    {name: 'Battleship 1', size: 3, selected: false},
-    {name: 'Battleship 2', size: 3, selected: false},
-    {name: 'Submarine 1', size: 2, selected: false},
-    {name: 'Submarine 2', size: 2, selected: false},
-    {name: 'Submarine 3', size: 2, selected: false},
-    {name: 'Destroyer 1', size: 1, selected: false},
-    {name: 'Destroyer 2', size: 1, selected: false},
-    {name: 'Destroyer 3', size: 1, selected: false},
-    {name: 'Destroyer 4', size: 1, selected: false},
+    {name: 'Carrier 1', size: 4, selected: false, bullseye: false}, // statek 4 kratki
+    {name: 'Battleship 1', size: 3, selected: false, bullseye: false},
+    {name: 'Battleship 2', size: 3, selected: false, bullseye: false},
+    {name: 'Submarine 1', size: 2, selected: false, bullseye: false},
+    {name: 'Submarine 2', size: 2, selected: false, bullseye: false},
+    {name: 'Submarine 3', size: 2, selected: false, bullseye: false},
+    {name: 'Destroyer 1', size: 1, selected: false, bullseye: false},
+    {name: 'Destroyer 2', size: 1, selected: false, bullseye: false},
+    {name: 'Destroyer 3', size: 1, selected: false, bullseye: false},
+    {name: 'Destroyer 4', size: 1, selected: false, bullseye: false},
   ];
 
 
@@ -52,6 +52,10 @@ export class SocketService {
 
   wyslijTablice(tablica: any, ships: Ship[] = []) {
     this.socket.emit('modTablice', tablica, ships);
+  }
+
+  akcjaGracza(id: number) {
+    this.socket.emit('akcjaGracza', id);
   }
 
   constructor() {

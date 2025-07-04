@@ -26,7 +26,7 @@ export class BoardComponent implements AfterViewInit {
       this.cells[i] = {ship: false};
       }
       sock.stanGry.subscribe((stanGry:StanGry|null) => {
-        console.log(stanGry);
+        // console.log(stanGry);
         if(stanGry == null) return; // nie ma stanu gry
         
 
@@ -158,6 +158,7 @@ export class BoardComponent implements AfterViewInit {
           }
         }
       }
+      this.sock.wyslijTablice(this.cells, this.sock.ships); // modyfikacja tablicy
 
     } else {
       if(! this.run())
@@ -171,9 +172,9 @@ export class BoardComponent implements AfterViewInit {
         item.ship = true;
       }
 
+      this.sock.akcjaGracza(index); // wysyłamy akcję gracza
     }
     console.log(this.cells, this.sock.ships);
-    this.sock.wyslijTablice(this.cells, this.sock.ships); // modyfikacja tablicy
     this.input.nativeElement.focus();
   }
 }
