@@ -172,7 +172,9 @@ export class BoardComponent implements AfterViewInit {
         };
 
         let index = this.cells.indexOf(item);
+        
         let shipLength = statek.size;
+        statek.startPosition = index;
         
         if(!this.down){
         if(!this.shipConflictsV(item, shipLength)){
@@ -185,6 +187,7 @@ export class BoardComponent implements AfterViewInit {
       } else {
         if(!this.shipConflictsH(item, shipLength)){
           statek.selected = true;
+          statek.direction = true;
           for(let i = 0; i < shipLength; i++){
             this.cells[index + (i * this.cellsCount)].ship = true;
             this.cells[index + (i * this.cellsCount)].shipItem = statek;
